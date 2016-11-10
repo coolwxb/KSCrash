@@ -26,7 +26,6 @@
 
 
 #import "KSSystemInfo.h"
-#import "KSSystemInfoC.h"
 
 #import "KSDynamicLinker.h"
 #import "KSMach.h"
