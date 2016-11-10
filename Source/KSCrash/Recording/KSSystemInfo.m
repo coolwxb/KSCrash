@@ -81,16 +81,14 @@
 + (NSString*) stringSysctl:(NSString*) name
 {
     NSString* str = nil;
-    size_t size = kssysctl_stringForName([name cStringUsingEncoding:NSUTF8StringEncoding],
-                                         NULL,
-                                         0);
+    int size = kssysctl_stringForName([name cStringUsingEncoding:NSUTF8StringEncoding], NULL, 0);
     
     if(size <= 0)
     {
         return @"";
     }
     
-    NSMutableData* value = [NSMutableData dataWithLength:size];
+    NSMutableData* value = [NSMutableData dataWithLength:(unsigned)size];
     
     if(kssysctl_stringForName([name cStringUsingEncoding:NSUTF8StringEncoding],
                               value.mutableBytes,
@@ -217,7 +215,7 @@
     CC_SHA1([data bytes], (CC_LONG)[data length], sha);
     
     NSMutableString* hash = [NSMutableString string];
-    for(size_t i = 0; i < sizeof(sha); i++)
+    for(unsigned i = 0; i < sizeof(sha); i++)
     {
         [hash appendFormat:@"%02x", sha[i]];
     }
